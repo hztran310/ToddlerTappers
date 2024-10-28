@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Game</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <main>
+            <div class="homepage_title">
+                <img src="images/homepage_title.png" alt="Homepage Title" />
+            </div>
+            <img id="homepage_toybox" src="images/homepage-toybox.png" />
+            <img id="homepage_bricktoy" src="images/homepage-bricktoy.png" />
+            <img id="homepage_puzzle" src="images/homepage-puzzle.png" />
+            <img id="homepage_plane" src="images/homepage-plane.png" />
+            <img id="homepage1" src="images/Homepage1.png" />
+            <img id="star" src="images/star.png" />
+        </main>
+
+        <button id="playButton" class="play-btn">
+            <img src="images/play-button.png" alt="Play Button" />
+        </button>
+
+        <button id="closeButton" class="close-btn">
+            <img src="images/close-button.png" alt="Close Button" />
+        </button>
+
+        <button id="settingButton" class="setting-btn">
+            <img src="images/homepage-setting.png" alt="Setting Button" />
+        </button>
+    </div>
+
+    <script src="sketch.js"></script>
+
+    <script>
+      document.getElementById('playButton').addEventListener('click', function() {
+        console.log('Play button clicked!');
+        window.location.href = 'game-menu.html';
+      });
+      
+    </script>
+</body>
+</html>
