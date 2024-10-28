@@ -1,190 +1,191 @@
-body {
+/* General Styling */
+body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #e9f5fc;
+    width: 100%;
+    height: 100%;
+    font-family: Robotto, sans-serif;
+    background-color: rgb(233, 255, 206);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Container and Main Layout */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
 main {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
-canvas {
-    border: 2px solid #ccc;
-    display: block;
-}
-
-.homepage_title {
+.homepage-title {
     position: absolute;
     top: 47%; 
     left: 50%;
     transform: translate(-50%, -50%); 
-}
-
-.homepage_title img {
-    width: 60vw; 
+    width: 55vw;
     height: auto;
 }
 
-.play-btn {
+.homepage-title img {
+    width: 200vw; 
+    height: auto;
+}
+
+/* Game Images */
+.game-image {
     position: absolute;
-    top: 60vh; 
-    left: 37vw; 
-    background-color: transparent;
+    transform: translate(-50%, -50%);
+}
+
+/* Specific Image Positions and Scaling */
+.toybox {
+    left: 10%;
+    top: 85%;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.bricktoy {
+    left: 90%;
+    top: 90%;
+    transform: translate(-50%, -50%) scale(1.4);
+}
+
+.puzzle {
+    left: 95%;
+    top: 40%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.plane {
+    left: 25%;
+    top: 15%;
+    transform: translate(-50%, -50%) scale(0.6);
+}
+
+.homepage {
+    left: 50%;
+    top: 27%;
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+/* Button Styling */
+.close-btn, .setting-btn {
+    position: absolute;
+    background: none;
     border: none;
     cursor: pointer;
 }
 
+.close-btn {
+    top: 2vh;
+    left: 1vw;
+}
+
+.setting-btn {
+    top: 15vh;
+    left: 1vw;
+}
+
+/* Play Button Styling */
+.play-btn {
+    position: absolute;
+    top: 60vh;
+    left: 40vw;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
 .play-btn img {
-    width: 25vw; 
+    width: 20vw;
     height: auto;
 }
 
 .play-btn:hover img {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 
-.close-btn {
-    position: absolute;
-    top: 2vh;
-    left: 1vw; 
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
 
-.close-btn img {
-    width: 5vw; 
-    height: auto;
-}
-
-.close-btn:hover img {
-    transform: scale(1.1); 
-}
-
-.setting-btn {
-    position: absolute;
-    top: 15vh; 
-    left: 1vw; 
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.setting-btn img {
-    width: 5vw; 
-    height: auto;
-}
-
-.setting-btn:hover img {
-    transform: scale(1.1); 
-}
-
+/* Main Title Styling */
 .gamemenu_tile {
     position: absolute;
-    top: 15%; 
+    top: 15%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
 }
 
-.gamemenu_tile img{
-    width: 40vw; 
+.gamemenu_tile img {
+    width: 40vw;
     height: auto;
 }
 
-.gamemenu_bubble {
+/* Game Option Layout */
+.game-option {
     position: absolute;
     top: 30%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.game-option img {
+    width: 27vw;
+    height: auto;
+}
+
+/* Positioning of Each Game Option */
+#bubble {
     left: 5%;
 }
 
-.gamemenu_bubble img {
-    width: 27vw; 
-    height: auto;
-}
-
-.gamemenu_bubble_title {
-    position: absolute;
-    top: 85%;
-    left: 18%;
-    transform: translate(-50%, -50%); 
-}
-
-.gamemenu_bubble_title img {
-    width: 27vw; 
-    height: auto;
-}
-
-.gamemenu_sorting {
-    position: absolute;
-    top: 30%;
+#sorting {
     left: 37%;
 }
 
-.gamemenu_sorting img {
-    width: 27vw; 
-    height: auto;
-}
-
-.gamemenu_sorting_title {
-    position: absolute;
-    top: 85%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-}
-
-.gamemenu_sorting_title img {
-    width: 27vw; 
-    height: auto;
-}
-
-.gamemenu_threading {
-    position: absolute;
-    top: 30%;
+#threading {
     left: 69%;
 }
 
-.gamemenu_threading img {
-    width: 27vw; 
-    height: auto;
-}
-
-.gamemenu_threading_title {
+/* Title Animation */
+.game-option .title {
     position: absolute;
     top: 85%;
-    left: 83.5%;
-    transform: translate(-50%, -50%); 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 27vw;
+    height: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
 }
 
-.gamemenu_threading_title img {
-    width: 27vw; 
+.game-option:hover .title {
+    transform: translate(-50%, -60%);
+    opacity: 1;
+}
+
+/* Button Styling */
+button {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button img {
+    width: 5vw;
     height: auto;
 }
 
-img {
-    display: none; 
+button:hover {
+    transform: scale(1.1);
 }
 
-.play-btn img,
-.close-btn img,
-.setting-btn img,
-.homepage_title img,
-.gamemenu_tile img,
-.gamemenu_bubble img,
-.gamemenu_sorting img,
-.gamemenu_threading img,
-.gamemenu_bubble_title img,
-.gamemenu_sorting_title img,
-.gamemenu_threading_title img {
-    display: block;
-}

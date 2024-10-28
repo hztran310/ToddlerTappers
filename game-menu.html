@@ -1,62 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Game</title>
-
+    <title>Interactive Game - Game Menu</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
-    
-    <link rel="stylesheet" type="text/css" href="style.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <main>
-        <div class="gamemenu_tile">
-            <img src="images/homepage_title.png" alt="Homepage Title" />
-        </div>
-        <div class="gamemenu_bubble">
-          <img src="images/gamemenu_bubble.png" alt="Bubble Game" />
-        </div>
-        <div class="gamemenu_bubble_title">
-          <img src="images/bubble_title.png" alt="Bubble Title" />
-        </div>
-        <div class="gamemenu_sorting">
-          <img src="images/gamemenu_sorting.png" alt="Sorting Game" />
-        </div>
-        <div class="gamemenu_sorting_title">
-          <img src="images/sorting_title.png" alt="Sorting Title" />
-        </div>
-        <div class="gamemenu_threading">
-          <img src="images/gamemenu_threading.png" alt="Threading Game" />
-        </div>
-        <div class="gamemenu_threading_title">
-          <img src="images/threading_title.png" alt="Threading Title" />
-        </div>
-        <button id="closeButton" class="close-btn">
-          <img src="images/close-button.png" alt="Close Button" />
-        </button>
-
-        <button id="settingButton" class="setting-btn">
-            <img src="images/homepage-setting.png" alt="Setting Button" />
-        </button>
-      </main>
-
+        <main>
+            <div class="gamemenu_tile">
+                <img src="images/homepage_title.png" alt="Homepage Title" />
+            </div>
+            <div class="game-option" id="bubble">
+                <img src="images/gamemenu_bubble.png" alt="Bubble Game" />
+                <img src="images/bubble_title.png" alt="Bubble Title" class="title" />
+            </div>
+            <div class="game-option" id="sorting">
+                <img src="images/gamemenu_sorting.png" alt="Sorting Game" />
+                <img src="images/sorting_title.png" alt="Sorting Title" class="title" />
+            </div>
+            <div class="game-option" id="threading">
+                <img src="images/gamemenu_threading.png" alt="Threading Game" />
+                <img src="images/threading_title.png" alt="Threading Title" class="title" />
+            </div>
+            <button id="closeButton" class="close-btn">
+                <img src="images/close-button.png" alt="Close Button" />
+            </button>
+            <button id="settingButton" class="setting-btn">
+                <img src="images/homepage-setting.png" alt="Setting Button" />
+            </button>
+        </main>
     </div>
-
-    <!-- Load sketch.js to run the p5.js code -->
     <script src="sketch.js"></script>
-    
-    <!-- Add custom JavaScript for the button action -->
     <script>
       
     </script>
-
-    
-
-  </body>
+</body>
 </html>
