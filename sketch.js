@@ -7,6 +7,12 @@ function setupButtons() {
     // Directly attach event listeners to the buttons
     const closeButton = select('#closeButton');
     const settingButton = select('#settingButton');
+    const playButton = select('#playButton');
+    const bubbleButton = document.getElementById('bubble');
+
+    if (bubbleButton) {
+        bubbleButton.mousePressed(() => window.location.href = 'Sorting/index.html');
+    }
 
     if (closeButton) {
         closeButton.mousePressed(() => window.close());
@@ -15,6 +21,12 @@ function setupButtons() {
     if (settingButton) {
         settingButton.mousePressed(() => alert('Settings button pressed!'));
     }
+
+    if (playButton) {
+        playButton.mousePressed(() => window.location.href = 'game-menu.html');
+    }
+
+
 }
 
 function windowResized() {
