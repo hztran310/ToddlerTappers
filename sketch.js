@@ -38,26 +38,8 @@ function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
 }
 
-function drawCenterRectangle() {
-    fill(255, 249, 120); // Yellow color for the rectangle
-    noStroke();
-    let rectWidth = 50;
-    let rectHeight = 30;
-    let cornerRadius = 20;
-
-    rectMode(CENTER);
-    rect(100, 200, rectWidth, rectHeight, cornerRadius);
-}
-
 function draw() {
     background(233, 255, 206); // Background color
-
-    if (document.body.id === "resultPage") {
-        fill(255, 0, 0); // Red color for the rectangle
-        noStroke();
-        rectMode(CENTER);
-        rect(windowWidth / 2, windowHeight / 2, 100, 50); // Draw rectangle directly here
-    }
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -78,10 +60,10 @@ function createStarElement() {
 function drawStars(score) {
     const starContainer = document.getElementById('starContainer');
 
-    if (score > 3) {
+    if (score > 0) {
         starContainer.appendChild(createStarElement());
     }
-    if (score > 5) {
+    if (score > 3) {
         starContainer.appendChild(createStarElement());
     }
     if (score > 7) {

@@ -225,10 +225,10 @@ button:hover {
 
 .result_score_text {
     position: absolute;
-    top: 80%;
-    left: 65%;
+    top: 76%;
+    left: 60%;
     transform: translate(-50%, -50%);
-    width: 80vw;
+    width: 75vw;
     height: auto;
 }
 
@@ -242,6 +242,6 @@ button:hover {
 }
 
 .star {
-    width: 700px;
-    height: 700px;
+    width: 500px;
+    height: 500px;
 }
