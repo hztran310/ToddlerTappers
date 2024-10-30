@@ -8,10 +8,15 @@ function setupButtons() {
     const closeButton = select('#closeButton');
     const settingButton = select('#settingButton');
     const playButton = select('#playButton');
+    const sortingButton = document.getElementById('sorting');
     const bubbleButton = document.getElementById('bubble');
 
-    if (bubbleButton) {
+    if (sortingButton) {
         bubbleButton.mousePressed(() => window.location.href = 'Sorting/index.html');
+    }
+
+    if (bubbleButton) {
+        bubbleButton.mousePressed(() => window.location.href = 'Bubble/index.html');
     }
 
     if (closeButton) {
