@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Game - Game Menu</title>
+    <title>Toddler Tappers - Game Menu</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
@@ -12,21 +12,21 @@
 <body>
     <div class="container">
         <main>
-            <div class="gamemenu_tile">
+            <div class="gamemenu_title">
                 <img src="images/homepage_title.png" alt="Homepage Title" />
             </div>
-            <div class="game-option" id="bubble">
+            <a href="bubble-game.html" class="game-option" id="bubble">
                 <img src="images/gamemenu_bubble.png" alt="Bubble Game" />
                 <img src="images/bubble_title.png" alt="Bubble Title" class="title" />
-            </div>
-            <div class="game-option" id="sorting">
+            </a>
+            <a href="sorting-game.html" class="game-option" id="sorting">
                 <img src="images/gamemenu_sorting.png" alt="Sorting Game" />
                 <img src="images/sorting_title.png" alt="Sorting Title" class="title" />
-            </div>
-            <div class="game-option" id="threading">
+            </a>
+            <a href="threading-game.html" class="game-option" id="threading">
                 <img src="images/gamemenu_threading.png" alt="Threading Game" />
                 <img src="images/threading_title.png" alt="Threading Title" class="title" />
-            </div>
+            </a>
             <button id="closeButton" class="close-btn">
                 <img src="images/close-button.png" alt="Close Button" />
             </button>
@@ -36,8 +36,5 @@
         </main>
     </div>
     <script src="sketch.js"></script>
-    <script>
-      
-    </script>
 </body>
 </html>
