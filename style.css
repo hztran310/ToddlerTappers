@@ -1,4 +1,3 @@
-/* General Styling */
 body, html {
     margin: 0;
     padding: 0;
@@ -15,11 +14,10 @@ canvas {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1; /* Adjust to bring the canvas to the correct layer */
+    z-index: -1;
 }
 
 
-/* Container and Main Layout */
 .container {
     position: relative;
     width: 100%;
@@ -47,13 +45,11 @@ main {
     height: auto;
 }
 
-/* Game Images */
 .game-image {
     position: absolute;
     transform: translate(-50%, -50%);
 }
 
-/* Specific Image Positions and Scaling */
 .toybox {
     left: 10%;
     top: 85%;
@@ -84,7 +80,6 @@ main {
     transform: translate(-50%, -50%) scale(1.5);
 }
 
-/* Button Styling */
 .close-btn, .setting-btn {
     position: absolute;
     background: none;
@@ -102,7 +97,6 @@ main {
     left: 1vw;
 }
 
-/* Play Button Styling */
 .play-btn {
     position: absolute;
     top: 60vh;
@@ -122,8 +116,6 @@ main {
     transform: scale(1.1);
 }
 
-
-/* Main Title Styling */
 .gamemenu_title {
     position: absolute;
     top: 15%;
@@ -136,7 +128,6 @@ main {
     height: auto;
 }
 
-/* Game Option Layout */
 .game-option {
     position: absolute;
     top: 30%;
@@ -149,7 +140,6 @@ main {
     height: auto;
 }
 
-/* Positioning of Each Game Option */
 #bubble {
     left: 5%;
 }
@@ -162,7 +152,6 @@ main {
     left: 69%;
 }
 
-/* Title Animation */
 .game-option .title {
     position: absolute;
     top: 85%;
@@ -179,7 +168,6 @@ main {
     opacity: 1;
 }
 
-/* Button Styling */
 button {
     background: none;
     border: none;
@@ -225,7 +213,7 @@ button:hover {
 
 .result_score_text {
     position: absolute;
-    top: 76%;
+    top: 65%;
     left: 60%;
     transform: translate(-50%, -50%);
     width: 75vw;
@@ -234,7 +222,7 @@ button:hover {
 
 .star-container {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -244,4 +232,82 @@ button:hover {
 .star {
     width: 500px;
     height: 500px;
+}
+
+.result_dinosaur {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+}
+
+.result_dinosaur img {
+    transform: rotate(15deg);
+}
+
+.result_bricktoy {
+    position: absolute;
+    top: 95%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+}
+
+.result_bricktoy img {
+    width: 30%;
+    height: auto;
+}
+
+.result_pizza {
+    position: absolute;
+    top: 20%;
+    left: 120%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+}
+
+.result_pizza img {
+    width: 20%;
+    height: auto;
+}
+
+.result_robot {
+    position: absolute;
+    top: 80%;
+    left: 120%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+}
+
+.result_robot img {
+    width: 40%;
+    height: auto;
+}
+
+.reload-btn {
+    position: absolute;
+    top: 75%;
+    left: 40%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.home-btn {
+    position: absolute;
+    top: 75%;
+    left: 53%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.home-btn img, .reload-btn img {
+    width: 7vw;
+    height: auto;
 }
