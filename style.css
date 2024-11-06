@@ -222,7 +222,7 @@ button:hover {
 
 .star-container {
     position: absolute;
-    top: 45%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -230,8 +230,8 @@ button:hover {
 }
 
 .star {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
 }
 
 .result_dinosaur {
@@ -310,4 +310,30 @@ button:hover {
 .home-btn img, .reload-btn img {
     width: 7vw;
     height: auto;
+}
+
+.score-container {
+    position: absolute; /* Position the container absolutely */
+    top: 65%; /* Position the container 60% from the top */
+    left: 70%; /* Position the container 50% from the left */
+    transform: translate(-50%, -50%); /* Center the container */
+    padding: 60px; /* Add padding */
+    text-align: center; /* Center the text inside the container */
+    z-index: 1000; /* Ensure it's on top of other elements */
+    width: 10%; /* Set the width of the container */
+    height: 20%;
+}
+
+.score-text {
+    font-family: 'Roboto', sans-serif; /* Use the specified font */
+    font-size: 100px; /* Set the font size */
+    color: #004aad; /* Set the text color */
+    margin: 10px 0; /* Add margin between score elements */
+}
+
+/* Optional: Style for large screens */
+@media (min-width: 768px) {
+    .score-text {
+        font-size: 150px; /* Increase font size for larger screens */
+    }
 }

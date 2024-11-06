@@ -1,8 +1,35 @@
 html, body {
-    margin: 0;
-    padding: 0;
-  }
-  canvas {
-    display: block;
-  }
-  
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+.bubble_title {
+  position: absolute;
+  top: 18%; 
+  left: 53%;
+  transform: translate(-50%, -50%); 
+  width: 55vw;
+  height: auto;
+}
+
+.bubble_title img {
+  width: 50vw; 
+  height: auto;
+}
+
+.bubble_dog_bath {
+  position: absolute;
+  top: 75%; 
+  left: 57%;
+  transform: translate(-50%, -50%); 
+  width: 55vw;
+  height: auto;
+}
+
+.bubble_dog_bath img {
+  width: 40vw; 
+  height: auto;
+}

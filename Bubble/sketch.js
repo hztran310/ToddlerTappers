@@ -4,14 +4,18 @@ let bubbleCount = 0;       // Bubble counter
 let timer = 30;            // Game time in seconds
 let highScore = 0;         // To store the highest score
 let gameActive = true;     // To control when the game is active
+let endTime = 0;           // To track when the game ends and redirect
 
 function preload() {
   popSound = loadSound('bubble.mp3');
+
 }
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight);
   textAlign(CENTER, CENTER);
+
+  highScore = localStorage.getItem('highScore_Bubble') ? parseInt(localStorage.getItem('highScore')) : 0;
   
   // Start by generating some initial bubbles
   for (let i = 0; i < 10; i++) {
@@ -19,24 +23,46 @@ function setup() {
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function draw() {
-  background(0);  // Black background
-  
-  // Display only the timer during gameplay
-  fill(255);
-  textSize(24);
+  background(233, 255, 206);  
+
+  fill(0);
+  textSize(100);
+  // textFont(robotoFont); // Set the font to Roboto
+  textAlign(CENTER, CENTER); // Center the text horizontally and vertically
+
   if (gameActive) {
-    text(`Time Left: ${timer}`, width / 2, 30);
+    text(`Time Left: ${timer}`, width / 2, 680);
     
     // Update timer and check if game is over
-    if (frameCount % 60 == 0) {  // Decrease timer every second
+    if (millis() - endTime >= 1000 && timer > 0) {
+      endTime = millis();
       timer--;
-      if (timer <= 0) {
-        gameActive = false;  // Stop the game when the timer runs out
-        highScore = max(highScore, bubbleCount);  // Update high score if necessary
-      }
     }
-    
+
+    if (timer <= 0 && gameActive) {
+      gameActive = false;  // Stop the game when the timer runs out
+      
+      let currentHighScore = max(highScore, bubbleCount);  // Update high score if necessary
+
+      localStorage.setItem('finalScore', bubbleCount);
+      if (currentHighScore > highScore) {
+        localStorage.setItem('highScore_Bubble', currentHighScore);
+      }
+
+      // At the end of the game, set the game type in localStorage
+      localStorage.setItem('currentGame', 'Bubble');
+
+
+      setTimeout(() => {
+        window.location.href = '../result.html';  // Redirect to result page after 3 seconds
+      });
+    }
+
     // Update and display all bubbles
     for (let i = bubbles.length - 1; i >= 0; i--) {
       bubbles[i].move();
@@ -53,15 +79,7 @@ function draw() {
     if (frameCount % 60 == 0) {
       createBubble();
     }
-  } else {
-    // Display game over message with final stats
-    textSize(32);
-    text("Game Over!", width / 2, height / 2 - 40);
-    textSize(24);
-    text(`Bubbles Popped: ${bubbleCount}`, width / 2, height / 2);
-    text(`High Score: ${highScore}`, width / 2, height / 2 + 40);
-    text("Press 'R' to Restart", width / 2, height / 2 + 80);
-  }
+  } 
 }
 
 function mousePressed() {
@@ -78,18 +96,11 @@ function mousePressed() {
   }
 }
 
-function keyPressed() {
-  // Reset the game if 'R' is pressed
-  if (key === 'R' || key === 'r') {
-    resetGame();
-  }
-}
-
 // Helper function to create a new bubble with vibrant colors and transparency
 function createBubble() {
   let x = random(width);
   let y = height + random(50, 100); // Start slightly off-screen at the bottom
-  let r = random(30, 60);  // Random size for bubbles
+  let r = random(60, 120);  // Random size for bubbles
   
   // Color palette with vibrant colors and slight transparency
   let colors = [
@@ -104,18 +115,18 @@ function createBubble() {
   bubbles.push(new Bubble(x, y, r, c));
 }
 
-// Reset the game
-function resetGame() {
-  bubbleCount = 0;
-  timer = 30;
-  gameActive = true;
-  bubbles = [];
-  for (let i = 0; i < 10; i++) {
-    createBubble();
-  }
-}
+// // Reset the game
+// function resetGame() {
+//   bubbleCount = 0;
+//   timer = 30;
+//   gameActive = true;
+//   bubbles = [];
+//   for (let i = 0; i < 10; i++) {
+//     createBubble();
+//   }
+// }
 
-// Bubble class with enhanced shiny appearance
+// Bubble class with simple smiley face
 class Bubble {
   constructor(x, y, r, c) {
     this.x = x;
@@ -139,17 +150,15 @@ class Bubble {
   show() {
     noStroke();
     
-    // Bubble with soft gradient-like fill
+    // Bubble with color fill
     fill(this.color);
     ellipse(this.x, this.y, this.r * 2);
     
-    // Add a shiny highlight effect
-    fill(255, 255, 255, 180);
-    ellipse(this.x - this.r * 0.2, this.y - this.r * 0.2, this.r * 0.4);
-    
-    // Additional small highlight
-    fill(255, 255, 255, 120);
-    ellipse(this.x + this.r * 0.15, this.y + this.r * 0.15, this.r * 0.2);
+    // Smiley face
+    fill(0);  // Black color for eyes and mouth
+    ellipse(this.x - this.r * 0.3, this.y - this.r * 0.3, this.r * 0.2);  // Left eye
+    ellipse(this.x + this.r * 0.3, this.y - this.r * 0.3, this.r * 0.2);  // Right eye
+    arc(this.x, this.y + this.r * 0.2, this.r * 0.6, this.r * 0.4, 0, PI);  // Smiling mouth
   }
 
   isPopped(px, py) {

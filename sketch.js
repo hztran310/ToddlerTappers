@@ -11,6 +11,7 @@ function setupButtons() {
     const sortingButton = document.getElementById('sorting');
     const bubbleButton = document.getElementById('bubble');
 
+t 
     if (sortingButton) {
         bubbleButton.mousePressed(() => window.location.href = 'Sorting/index.html');
     }
@@ -29,6 +30,9 @@ function setupButtons() {
 
     if (playButton) {
         playButton.mousePressed(() => window.location.href = 'game-menu.html');
+    }
+    if (reloadButton) {
+        reloadButton.mousePressed(() => resetGame()); // Call resetGame on click
     }
 
 

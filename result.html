@@ -47,5 +47,55 @@
             </button>
         </main>
     </div>
+    <div class="score-container">
+        <p class="score-text" id="finalScore"></p>
+        <p class="score-text" id="highScore"></p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const currentGame = localStorage.getItem('currentGame');
+            const finalScore = parseInt(localStorage.getItem('finalScore'), 10);
+            let highScore = parseInt(localStorage.getItem(`highScore_${currentGame}`), 10) || 0;
+        
+            // Check if the final score is greater than the saved high score and update it if necessary
+            if (finalScore > highScore) {
+                highScore = finalScore;
+                localStorage.setItem(`highScore_${currentGame}`, highScore);  // Update high score in local storage
+            }
+
+            // Update the HTML to display the scores
+            document.getElementById('finalScore').textContent = `${finalScore}`;
+            document.getElementById('highScore').textContent = `${highScore}`;
+        
+            // Clear the current game and final score from localStorage if you don't want to keep them
+            localStorage.removeItem('finalScore');
+        });
+    </script>     
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const reloadButton = document.getElementById('reloadButton');
+            reloadButton.addEventListener('click', function() {
+                const game = localStorage.getItem('currentGame');
+        
+                if (!game) {
+                    window.location.href = '/Bubble/index.html';  // Default to the bubble game
+                } else {
+                    window.location.href = `../${game}/index.html`;
+                }
+        
+                localStorage.removeItem('currentGame');
+            });
+        });        
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const homeButton = document.getElementById('homeButton');
+            
+            // Add click event listener to redirect to the home page (game-menu.html)
+            homeButton.addEventListener('click', function() {
+                window.location.href = 'game-menu.html';  // Redirect to the game menu
+            });
+        });
+    </script>  
 </body>
 </html>
