@@ -15,13 +15,20 @@
       <div class="bubble_dog_bath">
         <img src="../images/bubble-dog.png" alt="Dog Bath" />
       </div>
-      <!-- <button id="closeButton" class="close-btn">
-        <img src="../images/close-button.png" alt="Close Button" />
+      <button id="backButton" class="back-btn">
+        <img src="../images/back_button.png" alt="Back Button" />
       </button>
-      <button id="settingButton" class="setting-btn">
-          <img src="../images/homepage-setting.png" alt="Setting Button" />
-      </button> -->
     </main>
     <script src="sketch.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        const backButton = document.getElementById('backButton');
+        if (backButton) {
+            backButton.addEventListener('click', () => {
+                window.location.href = '../game-menu.html'; // Change this to the correct path of your main menu page
+            });
+        }
+    });
+    </script>
   </body>
-</html>
+</html> 

@@ -76,12 +76,9 @@
             const reloadButton = document.getElementById('reloadButton');
             reloadButton.addEventListener('click', function() {
                 const game = localStorage.getItem('currentGame');
+                console.log(game);
         
-                if (!game) {
-                    window.location.href = '/Bubble/index.html';  // Default to the bubble game
-                } else {
-                    window.location.href = `../${game}/index.html`;
-                }
+                window.location.href = `${game}/index.html`;
         
                 localStorage.removeItem('currentGame');
             });

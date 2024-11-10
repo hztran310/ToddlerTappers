@@ -1,7 +1,7 @@
 let bubbles = [];
 let popSound;
 let bubbleCount = 0;       // Bubble counter
-let timer = 30;            // Game time in seconds
+let timer = 5;            // Game time in seconds
 let highScore = 0;         // To store the highest score
 let gameActive = true;     // To control when the game is active
 let endTime = 0;           // To track when the game ends and redirect
@@ -36,7 +36,7 @@ function draw() {
   textAlign(CENTER, CENTER); // Center the text horizontally and vertically
 
   if (gameActive) {
-    text(`Time Left: ${timer}`, width / 2, 680);
+    text(`Time Left: ${timer}`, width / 2, 450);
     
     // Update timer and check if game is over
     if (millis() - endTime >= 1000 && timer > 0) {

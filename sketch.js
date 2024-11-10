@@ -10,8 +10,8 @@ function setupButtons() {
     const playButton = select('#playButton');
     const sortingButton = document.getElementById('sorting');
     const bubbleButton = document.getElementById('bubble');
+    const homeButton = document.getElementById('gamemenu_homeButton');
 
-t 
     if (sortingButton) {
         bubbleButton.mousePressed(() => window.location.href = 'Sorting/index.html');
     }
@@ -33,6 +33,10 @@ t
     }
     if (reloadButton) {
         reloadButton.mousePressed(() => resetGame()); // Call resetGame on click
+    }
+
+    if (homeButton) {
+        homeButton.mousePressed(() => window.location.href = 'homepage.html');
     }
 
 
