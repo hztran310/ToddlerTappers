@@ -1,0 +1,46 @@
+html, body {
+    margin: 0;
+    padding: 0;
+  }
+  canvas {
+    display: block;
+  }
+  
+  button {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  button img {
+    width: 5vw;
+    height: auto;
+  }
+  
+  .back-btn {
+    position: absolute;
+    top: 15%; 
+    left: 6%;
+    transform: translate(-50%, -50%); 
+    height: auto;
+  }
+  
+  .back-btn img {
+    width: 5vw; 
+    height: auto;
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  button img {
+    width: 5vw;
+    height: auto;
+  }

@@ -23,6 +23,7 @@ function setup() {
   }
 }
 
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
@@ -36,7 +37,7 @@ function draw() {
   textAlign(CENTER, CENTER); // Center the text horizontally and vertically
 
   if (gameActive) {
-    text(`Time Left: ${timer}`, width / 2, 450);
+    text(`Time Left: ${timer}`, width / 2, 650);
     
     // Update timer and check if game is over
     if (millis() - endTime >= 1000 && timer > 0) {
@@ -46,6 +47,8 @@ function draw() {
 
     if (timer <= 0 && gameActive) {
       gameActive = false;  // Stop the game when the timer runs out
+      
+      if (isNaN(bubbleCount)) bubbleCount = 0;
       
       let currentHighScore = max(highScore, bubbleCount);  // Update high score if necessary
 
@@ -114,17 +117,6 @@ function createBubble() {
   let c = random(colors); // Randomly select a color
   bubbles.push(new Bubble(x, y, r, c));
 }
-
-// // Reset the game
-// function resetGame() {
-//   bubbleCount = 0;
-//   timer = 30;
-//   gameActive = true;
-//   bubbles = [];
-//   for (let i = 0; i < 10; i++) {
-//     createBubble();
-//   }
-// }
 
 // Bubble class with simple smiley face
 class Bubble {
