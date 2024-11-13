@@ -337,3 +337,27 @@ button:hover {
         font-size: 150px; /* Increase font size for larger screens */
     }
 }
+
+.result_score 
+{
+    position: absolute;
+    top: 65%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    width: 75vw;
+    height: auto;
+}
+
+.score-text1 {
+    font-family: 'Roboto', sans-serif; /* Use the specified font */
+    font-size: 100px; /* Set the font size */
+    color: #004aad; /* Set the text color */
+    margin: 10px 0; /* Add margin between score elements */
+}
+
+/* Optional: Style for large screens */
+@media (min-width: 768px) {
+    .score-text1 {
+        font-size: 150px; /* Increase font size for larger screens */
+    }
+}

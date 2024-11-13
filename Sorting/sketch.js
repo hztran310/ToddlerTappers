@@ -68,9 +68,6 @@ function draw() {
       text('Congratulations! You completed all levels!', width / 2, height / 2);
       noLoop();
 
-      if (score > highScore) {
-        localStorage.setItem('highScore_Sorting', score);
-      }
     }
   }
 }
