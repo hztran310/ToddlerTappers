@@ -4,33 +4,44 @@ let score = 0;
 let level = 1;
 let totalLevels = 3;
 let backButton;
+let piggyBankImg, toysImg, foodImg;
+let coinImg, brocolliImg, pizzaImg, lemonadeImg, donutImg;
+let robotImg, carImg, dollImg, brickImg;
+let correctStreakCount = 0;
+
+function preload() {
+  piggyBankImg = loadImage('../images/piggy-bank.png');
+  toysImg = loadImage('../images/toy-sorting.png');
+  foodImg = loadImage('../images/food-basket.png');
+  coinImg = loadImage('../images/coin.png');
+  brocolliImg = loadImage('../images/broccoli.png');
+  pizzaImg = loadImage('../images/pizza.png');
+  lemonadeImg = loadImage('../images/lemonade.png');
+  donutImg = loadImage('../images/donut.png');
+  brickImg = loadImage('../images/brick.png');
+  carImg = loadImage('../images/car.png');
+  dollImg = loadImage('../images/doll.png');
+  robotImg = loadImage('../images/robot.png');
+}
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight);
   initializeGame();
 
-  // Back button setup
-  backButton = createButton('Back');
-  backButton.position(20, 550);
-  backButton.mousePressed(previousLevel);
+  highScore = localStorage.getItem('highScore_Sorting') ? parseInt(localStorage.getItem('highScore_Sorting')) : 0;
 }
 
 function draw() {
-  background(230, 240, 255);
+  background(233, 255, 206); 
 
   // Display the title of the game
   fill(0);
   textSize(24);
   textAlign(CENTER, TOP);
-  text("Sorting Game", width / 2, 20);
 
   // Draw labels with different colors
   for (let label of labels) {
-    fill(label.color);
-    rect(label.x, label.y, label.w, label.h, 10);
-    fill(0);
-    textAlign(CENTER, CENTER);
-    text(label.name, label.x + label.w / 2, label.y + label.h / 2);
+    image(label.img, label.x, label.y, label.w, label.h);
   }
 
   // Draw and update items
@@ -40,52 +51,85 @@ function draw() {
   }
 
   // Display score and level
-  fill(50);
-  textSize(18);
-  textAlign(LEFT, TOP);
-  text(`Score: ${score}`, 20, 20);
-  text(`Level: ${level}`, 20, 50);
+  document.getElementById('score').innerHTML = `${score}`;
+  document.getElementById('level_text').innerHTML = `Level: ${level}`;
 
   // Check if all items are correctly placed to move to the next level
   if (checkNextLevel()) {
+    score += calculateLevelBonus();
     if (level < totalLevels) {
       level++;
       initializeGame();
     } else {
-      background(255);
+      background(233, 255, 206); 
       fill(0);
       textSize(36);
       textAlign(CENTER, CENTER);
       text('Congratulations! You completed all levels!', width / 2, height / 2);
       noLoop();
+
+      if (score > highScore) {
+        localStorage.setItem('highScore_Sorting', score);
+      }
     }
   }
 }
 
 function initializeGame() {
+  if (level === 1) {
+    score = 0;
+  }
+
   items = [];
-  labels = [];
-  score = 0;
-
   labels = [
-    { name: 'Coin', x: 50, y: 500, w: 100, h: 50, color: color(255, 204, 0) },
-    { name: 'Toys', x: 200, y: 500, w: 100, h: 50, color: color(102, 204, 255) },
-    { name: 'Vegetables', x: 350, y: 500, w: 100, h: 50, color: color(144, 238, 144) },
-    { name: 'Food', x: 500, y: 500, w: 100, h: 50, color: color(255, 99, 71) }
+    { name: 'Piggy Bank', x: 700, y: 1450, w: 900, h: 900, img: piggyBankImg },
+    { name: 'Toys', x: 1700, y: 1450, w: 900, h: 900, img: toysImg },
+    { name: 'Food', x: 2650, y: 1450, w: 900, h: 900, img: foodImg }
   ];
 
-  items = [
-    new DraggableItem('Piggy Bank', random(50, 700), random(100, 400), 'Coin'),
-    new DraggableItem('Cash', random(50, 700), random(100, 400), 'Coin'),
-    new DraggableItem('Stuffed Animal', random(50, 700), random(100, 400), 'Toys'),
-    new DraggableItem('Fake Car', random(50, 700), random(100, 400), 'Toys'),
-    new DraggableItem('Doll', random(50, 700), random(100, 400), 'Toys'),
-    new DraggableItem('Broccoli', random(50, 700), random(100, 400), 'Vegetables'),
-    new DraggableItem('Carrot', random(50, 700), random(100, 400), 'Vegetables'),
-    new DraggableItem('Pizza', random(50, 700), random(100, 400), 'Food'),
-    new DraggableItem('Donut', random(50, 700), random(100, 400), 'Food'),
-    new DraggableItem('Bread', random(50, 700), random(100, 400), 'Food')
+  // Define all available items
+  const allItems = [
+    new DraggableItem('Fake Car', random(50, windowWidth - 700), random(600, 1000), 1000, 800, 'Toys', carImg),
+    new DraggableItem('Doll', random(50, windowWidth - 700), random(600, 1000), 1000, 800, 'Toys', dollImg),
+    new DraggableItem('Broccoli', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', brocolliImg),
+    new DraggableItem('Pizza', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', pizzaImg),
+    new DraggableItem('Donut', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', donutImg),
+    new DraggableItem('Lemonade', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', lemonadeImg),
+    new DraggableItem('Robot', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Toys', robotImg),
+    new DraggableItem('Brick', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Toys', brickImg)
   ];
+
+  let numItemTypes;
+  if (level === 1) {
+    numItemTypes = 3;
+  } else if (level === 2) {
+    numItemTypes = 5;
+  } else if (level === 3) {
+    numItemTypes = allItems.length;
+  }
+
+  const selectedItemTypes = shuffle(allItems).slice(0, numItemTypes);
+  const numCoins = floor(random(1, 5));
+  
+  for (let i = 0; i < numCoins; i++) {
+    items.push(new DraggableItem('Coin', random(50, windowWidth - 700), random(600, 1100), 400, 400, 'Piggy Bank', coinImg));
+  }
+  
+  for (let item of selectedItemTypes) {
+    items.push(item);
+  }
+
+  for (let item of items) {
+    item.visible = true; // Set all items to visible
+  }
+}
+
+function calculateLevelBonus()
+{
+  let baseBonus = 50;
+  let streakBonus = 10 * correctStreakCount;
+
+  return baseBonus + streakBonus;
 }
 
 function checkNextLevel() {
@@ -93,33 +137,39 @@ function checkNextLevel() {
 }
 
 class DraggableItem {
-  constructor(name, x, y, targetLabel) {
+  constructor(name, x, y, w, h, targetLabel, img = null) {
     this.name = name;
+    this.startX = x;  // Save original x position
+    this.startY = y;  // Save original y position
     this.x = x;
     this.y = y;
-    this.w = 50;
-    this.h = 50;
-    this.color = color(random(255), random(255), random(255));
+    this.w = w;
+    this.h = h;
     this.dragging = false;
     this.offsetX = 0;
     this.offsetY = 0;
     this.targetLabel = targetLabel;
     this.isPlaced = false;
+    this.img = img; // Add image property
+    this.visible = true; // Add visible property
   }
 
   pressed() {
-    if (mouseX > this.x && mouseX < this.x + this.w && mouseY > this.y && mouseY < this.y + this.h) {
+    if (this.visible && this.img && mouseX > this.x && mouseX < this.x + this.w && mouseY > this.y && mouseY < this.y + this.h) {
       this.dragging = true;
       this.offsetX = this.x - mouseX;
       this.offsetY = this.y - mouseY;
+      return true; // Indicate that this item is being dragged
     }
+    return false; // Indicate that this item is not being dragged
   }
 
   released() {
-    if (!this.dragging) return;  // Only proceed if item was actually dragged
+    if (!this.dragging) return;
     this.dragging = false;
 
     // Check if the item is dropped in the correct label
+    let placedCorrectly = false;
     for (let label of labels) {
       if (
         this.targetLabel === label.name &&
@@ -129,14 +179,24 @@ class DraggableItem {
         // Position the item in the center of the label
         this.x = label.x + (label.w - this.w) / 2;
         this.y = label.y + (label.h - this.h) / 2;
-        
+
         // Award score only if it hasn't been placed correctly before
         if (!this.isPlaced) {
-          score += 1;
-          this.isPlaced = true; // Mark only this item as placed to avoid scoring again
+          score += 10;
+          correctStreakCount++;
+          this.isPlaced = true;
+          this.visible = false; // Set visible to false
         }
-        return;
+        placedCorrectly = true;
+        break;
       }
+    }
+
+    // If not placed correctly, return to the original position
+    if (!placedCorrectly) {
+      correctStreakCount = 0;
+      this.x = this.startX;
+      this.y = this.startY;
     }
   }
 
@@ -148,11 +208,17 @@ class DraggableItem {
   }
 
   display() {
-    fill(this.color);
-    rect(this.x, this.y, this.w, this.h, 10);
-    fill(0);
-    textAlign(CENTER, CENTER);
-    text(this.name, this.x + this.w / 2, this.y + this.h / 2);
+    if (!this.visible) return; // Skip drawing if not visible
+
+    if (this.img) {
+      image(this.img, this.x, this.y, this.w, this.h); // Draw the image with specified width and height
+    } else {
+      fill(this.color);
+      rect(this.x, this.y, this.w, this.h, 10);
+      fill(0);
+      textAlign(CENTER, CENTER);
+      text(this.name, this.x + this.w / 2, this.y + this.h / 2);
+    }
   }
 }
 
@@ -164,8 +230,10 @@ function previousLevel() {
 }
 
 function mousePressed() {
-  for (let item of items) {
-    item.pressed();
+  for (let i = items.length - 1; i >= 0; i--) {
+    if (items[i].pressed()) {
+      break; // Stop checking other items once one is selected
+    }
   }
 }
 

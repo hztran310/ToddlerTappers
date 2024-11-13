@@ -33,7 +33,6 @@ function draw() {
 
   fill(0);
   textSize(100);
-  // textFont(robotoFont); // Set the font to Roboto
   textAlign(CENTER, CENTER); // Center the text horizontally and vertically
 
   if (gameActive) {
