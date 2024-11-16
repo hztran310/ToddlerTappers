@@ -361,3 +361,15 @@ button:hover {
         font-size: 150px; /* Increase font size for larger screens */
     }
 }
+
+.score-container1 {
+    position: absolute; /* Position the container absolutely */
+    top: 69%; /* Position the container 60% from the top */
+    left: 70%; /* Position the container 50% from the left */
+    transform: translate(-50%, -50%); /* Center the container */
+    padding: 60px; /* Add padding */
+    text-align: center; /* Center the text inside the container */
+    z-index: 1000; /* Ensure it's on top of other elements */
+    width: 10%; /* Set the width of the container */
+    height: 20%;
+}

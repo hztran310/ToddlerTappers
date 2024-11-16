@@ -56,18 +56,16 @@ function draw() {
 
   // Check if all items are correctly placed to move to the next level
   if (checkNextLevel()) {
-    score += calculateLevelBonus();
     if (level < totalLevels) {
       level++;
       initializeGame();
     } else {
-      background(233, 255, 206); 
-      fill(0);
-      textSize(36);
-      textAlign(CENTER, CENTER);
-      text('Congratulations! You completed all levels!', width / 2, height / 2);
-      noLoop();
-
+      // Display the game over screen
+      localStorage.setItem('currentGame', 'Sorting');
+      localStorage.setItem('finalScore', score);
+      setTimeout(() => {
+        window.location.href = '../result_without_highscore.html'; 
+      });
     }
   }
 }
@@ -79,21 +77,21 @@ function initializeGame() {
 
   items = [];
   labels = [
-    { name: 'Piggy Bank', x: 700, y: 1450, w: 900, h: 900, img: piggyBankImg },
-    { name: 'Toys', x: 1700, y: 1450, w: 900, h: 900, img: toysImg },
-    { name: 'Food', x: 2650, y: 1450, w: 900, h: 900, img: foodImg }
+    { name: 'Piggy Bank', x: windowWidth * 0.15, y: windowHeight * 0.6, w: windowWidth * 0.2, h: windowWidth * 0.2, img: piggyBankImg },
+    { name: 'Toys', x: windowWidth * 0.4, y: windowHeight * 0.6, w: windowWidth * 0.2, h: windowWidth * 0.2, img: toysImg },
+    { name: 'Food', x: windowWidth * 0.65, y: windowHeight * 0.6, w: windowWidth * 0.2, h: windowWidth * 0.2, img: foodImg }
   ];
 
   // Define all available items
   const allItems = [
-    new DraggableItem('Fake Car', random(50, windowWidth - 700), random(600, 1000), 1000, 800, 'Toys', carImg),
-    new DraggableItem('Doll', random(50, windowWidth - 700), random(600, 1000), 1000, 800, 'Toys', dollImg),
-    new DraggableItem('Broccoli', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', brocolliImg),
-    new DraggableItem('Pizza', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', pizzaImg),
-    new DraggableItem('Donut', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', donutImg),
-    new DraggableItem('Lemonade', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Food', lemonadeImg),
-    new DraggableItem('Robot', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Toys', robotImg),
-    new DraggableItem('Brick', random(50, windowWidth - 700), random(600, 1100), 800, 600, 'Toys', brickImg)
+    new DraggableItem('Fake Car', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.2), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.25, windowHeight * 0.21, 'Toys', carImg),
+    new DraggableItem('Doll', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.2), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.3, windowHeight * 0.3, 'Toys', dollImg),
+    new DraggableItem('Broccoli', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowWidth * 0.15, 'Food', brocolliImg),
+    new DraggableItem('Pizza', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Food', pizzaImg),
+    new DraggableItem('Donut', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Food', donutImg),
+    new DraggableItem('Lemonade', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Food', lemonadeImg),
+    new DraggableItem('Robot', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Toys', robotImg),
+    new DraggableItem('Brick', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Toys', brickImg)
   ];
 
   let numItemTypes;
@@ -109,7 +107,7 @@ function initializeGame() {
   const numCoins = floor(random(1, 5));
   
   for (let i = 0; i < numCoins; i++) {
-    items.push(new DraggableItem('Coin', random(50, windowWidth - 700), random(600, 1100), 400, 400, 'Piggy Bank', coinImg));
+    items.push(new DraggableItem('Coin', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.1), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.1, windowWidth * 0.1, 'Piggy Bank', coinImg));
   }
   
   for (let item of selectedItemTypes) {
@@ -119,14 +117,6 @@ function initializeGame() {
   for (let item of items) {
     item.visible = true; // Set all items to visible
   }
-}
-
-function calculateLevelBonus()
-{
-  let baseBonus = 50;
-  let streakBonus = 10 * correctStreakCount;
-
-  return baseBonus + streakBonus;
 }
 
 function checkNextLevel() {

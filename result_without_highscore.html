@@ -41,7 +41,7 @@
             </button>
         </main>
     </div>
-    <div class="score-container">
+    <div class="score-container1">
         <p class="score-text1" id="finalScore"></p>
     </div>
     <script>
@@ -51,6 +51,10 @@
 
             // Update the HTML to display the scores
             document.getElementById('finalScore').textContent = `${finalScore}`;
+
+            if (isNaN(finalScore)) {
+                document.getElementById('finalScore').textContent = '0';
+            }
         
             // Clear the current game and final score from localStorage if you don't want to keep them
             localStorage.removeItem('finalScore');
