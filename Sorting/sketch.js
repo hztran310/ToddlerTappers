@@ -27,8 +27,6 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   initializeGame();
-
-  highScore = localStorage.getItem('highScore_Sorting') ? parseInt(localStorage.getItem('highScore_Sorting')) : 0;
 }
 
 function draw() {

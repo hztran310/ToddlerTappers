@@ -88,3 +88,8 @@ button img {
   text-align: right;
   z-index: 2;
 }
+
+img {
+  pointer-events: none; /* Make the image unclickable */
+  user-select: none;    /* Make the image unselectable */
+}

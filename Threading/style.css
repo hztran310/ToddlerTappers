@@ -1,46 +1,100 @@
 html, body {
-    margin: 0;
-    padding: 0;
-  }
-  canvas {
-    display: block;
-  }
-  
-  button {
-    background: none;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  
-  button img {
-    width: 5vw;
-    height: auto;
-  }
-  
-  .back-btn {
-    position: absolute;
-    top: 15%; 
-    left: 6%;
-    transform: translate(-50%, -50%); 
-    height: auto;
-  }
-  
-  .back-btn img {
-    width: 5vw; 
-    height: auto;
-  }
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow:hidden;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
-  button {
-    background: none;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  
-  button img {
-    width: 5vw;
-    height: auto;
-  }
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button img {
+  width: 5vw;
+  height: auto;
+}
+
+.button {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.back-btn {
+  position: absolute;
+  top: 15%;
+  left: 6%;
+  transform: translate(-50%, -50%);
+  height: auto;
+}
+
+.title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.title img {
+  width: 50vw;
+  height: auto;
+}
+
+.score {
+  position: absolute;
+  top: 10%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.score img {
+  width: 20vw;
+  height: auto;
+}
+
+.score-text {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  font-size: 3vw;
+  color: #004aad;
+  font-family: 'Roboto', sans-serif;
+  text-align: right;
+  z-index: 2;
+}
+
+.level {
+  position: absolute;
+  top: 20%;
+  left: 87%;
+  transform: translate(-50%, -50%);
+  font-size: 3vw;
+  color: #004aad;
+  font-family: 'Roboto', sans-serif;
+  text-align: right;
+  z-index: 2;
+}
+
+img {
+  pointer-events: none; /* Make the image unclickable */
+  user-select: none;    /* Make the image unselectable */
+}
