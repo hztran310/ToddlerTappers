@@ -7,7 +7,7 @@ let gameActive = true;     // To control when the game is active
 let endTime = 0;           // To track when the game ends and redirect
 
 function preload() {
-  popSound = loadSound('bubble.mp3');
+  popSound = loadSound('../sound/bubble.mp3');
 
 }
 
