@@ -8,7 +8,12 @@ let lastConnectedBead = null; // Tracks the last connected bead in the current s
 let colors = ["red", "blue", "green", "yellow", "purple"];
 let score = 0;
 let highScore = 0;
+let sound;
 
+function preload()
+{
+    sound = loadSound('../sound/thread.mp3');
+}
 function setup() {
     createCanvas(windowWidth, windowHeight);
     generateBeads();
@@ -115,6 +120,8 @@ function mouseReleased() {
                 lastConnectedBead = bead;
 
                 score += 10;
+
+                sound.play();
 
                 // If all beads of this color are connected, reset for the next color
                 if (beads.filter(b => b.color === currentColor && b.connected).length === beads.filter(b => b.color === currentColor).length) {

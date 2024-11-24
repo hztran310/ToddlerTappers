@@ -1,54 +1,8 @@
-let openingSound;
-let audioContext;
-
-function preload() {
-    openingSound = loadSound('sound/result.wav', () => {
-        console.log('Sound loaded successfully');
-    }, (err) => {
-        console.error('Error loading sound:', err);
-    });
-}
-
 function setup() {
     createCanvas(windowWidth, windowHeight);
     setupButtons();
-
-    if (window.location.pathname.includes('result.html'))
-    {
-        document.addEventListener('click', playOpeningSound);
-    }
-
 }
 
-async function loadSound(url) {
-    const response = await fetch(url); // Fixed typo in 'response'
-    const arrayBuffer = await response.arrayBuffer();
-    if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    buffer = await audioContext.decodeAudioData(arrayBuffer);
-}
-
-
-function playOpeningSound() {
-    if (!audioContext) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    }
-
-    // Resume the AudioContext if it's suspended
-    if (audioContext.state === 'suspended') {
-        audioContext.resume();
-    }
-
-    const source = audioContext.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audioContext.destination);
-    source.start(0);
-
-    // Remove the event listener after the sound is played
-    document.removeEventListener('click', playOpeningSound);
-
-}
 
 function setupButtons() {
     // Directly attach event listeners to the buttons
