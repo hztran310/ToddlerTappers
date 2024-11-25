@@ -6,6 +6,8 @@
     <title>Toddler Tappers - Result Page</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
     <script src="sketch.js" defer></script>
 </head>
 <body id="resultPage">
@@ -46,6 +48,12 @@
         <p class="score-text" id="highScore"></p>
     </div>
     <script>
+        let clickSound;
+
+        function preload() {
+            clickSound = loadSound('sounds/start.mp3');
+        }
+
         document.addEventListener('DOMContentLoaded', (event) => {
             const currentGame = localStorage.getItem('currentGame');
             const finalScore = parseInt(localStorage.getItem('finalScore'), 10);
@@ -64,29 +72,42 @@
             // Clear the current game and final score from localStorage if you don't want to keep them
             localStorage.removeItem('finalScore');
         });
-    </script>     
-    <script>
+
         document.addEventListener('DOMContentLoaded', (event) => {
             const reloadButton = document.getElementById('reloadButton');
             reloadButton.addEventListener('click', function() {
+                clickSound.play();
                 const game = localStorage.getItem('currentGame');
                 console.log(game);
         
-                window.location.href = `${game}/index.html`;
-        
-                localStorage.removeItem('currentGame');
+                setTimeout(() => {
+                    window.location.href = `${game}/index.html`;
+                    localStorage.removeItem('currentGame');
+                }, 500); // Delay to allow the sound to play
             });
-        });        
-    </script>
-    <script>
+        });
+
         document.addEventListener('DOMContentLoaded', (event) => {
             const homeButton = document.getElementById('homeButton');
             
             // Add click event listener to redirect to the home page (game-menu.html)
             homeButton.addEventListener('click', function() {
-                window.location.href = 'game-menu.html';  // Redirect to the game menu
+                clickSound.play();
+                setTimeout(() => {
+                    window.location.href = 'game-menu.html';  // Redirect to the game menu
+                }, 500); // Delay to allow the sound to play
             });
         });
     </script>  
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('fade-in');
+        });        
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('fade-out');
+        });        
+    </script>
 </body>
 </html>

@@ -22,18 +22,36 @@
     </main>
     <script src="sketch.js"></script>
     <script>
+      let clickSound;
+
+      function preload() {
+          clickSound = loadSound('../sounds/start.mp3');
+      }
+
       document.addEventListener('DOMContentLoaded', (event) => {
-        const backButton = document.getElementById('backButton');
-        if (backButton) {
-            backButton.addEventListener('click', () => {
-                window.location.href = '../game-menu.html'; // Change this to the correct path of your main menu page
-            });
-        }
-    });
-    </script>
+          const backButton = document.getElementById('backButton');
+          if (backButton) {
+              backButton.addEventListener('click', () => {
+                  getAudioContext().resume().then(() => {
+                      clickSound.play();
+                      setTimeout(() => {
+                          window.location.href = '../game-menu.html'; // Change this to the correct path of your main menu page
+                      }, 500); // Delay to allow the sound to play
+                  }).catch((error) => {
+                      console.error('Error resuming audio context:', error);
+                  });
+              });
+          }
+      });
+  </script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
           document.body.classList.add('fade-in');
+      });        
+  </script>
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          document.body.classList.add('fade-out');
       });        
   </script>
   </body>

@@ -8,6 +8,10 @@ let piggyBankImg, toysImg, foodImg;
 let coinImg, brocolliImg, pizzaImg, lemonadeImg, donutImg;
 let robotImg, carImg, dollImg, brickImg;
 let correctStreakCount = 0;
+let correctSound;
+let incorrectSound;
+let highScore = 0;
+
 
 function preload() {
   piggyBankImg = loadImage('../images/piggy-bank.png');
@@ -22,11 +26,18 @@ function preload() {
   carImg = loadImage('../images/car.png');
   dollImg = loadImage('../images/doll.png');
   robotImg = loadImage('../images/robot.png');
+  correctSound = loadSound('../sounds/correct.mp3');
+  incorrectSound = loadSound('../sounds/invalid_sorting.mp3');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   initializeGame();
+
+  audioContext = getAudioContext();
+
+  highScore = localStorage.getItem('highScore_Sorting');
+
 }
 
 function draw() {
@@ -61,8 +72,11 @@ function draw() {
       // Display the game over screen
       localStorage.setItem('currentGame', 'Sorting');
       localStorage.setItem('finalScore', score);
+      if (score > highScore) {
+        localStorage.setItem('highScore_Sorting', score);
+      }
       setTimeout(() => {
-        window.location.href = '../result_without_highscore.html'; 
+        window.location.href = '../result.html'; 
       });
     }
   }
@@ -167,6 +181,7 @@ class DraggableItem {
 
         // Award score only if it hasn't been placed correctly before
         if (!this.isPlaced) {
+          correctSound.play();
           score += 10;
           correctStreakCount++;
           this.isPlaced = true;
@@ -179,7 +194,8 @@ class DraggableItem {
 
     // If not placed correctly, return to the original position
     if (!placedCorrectly) {
-      correctStreakCount = 0;
+      incorrectSound.play();
+      score -= 5;
       this.x = this.startX;
       this.y = this.startY;
     }
