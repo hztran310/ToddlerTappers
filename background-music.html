@@ -5,124 +5,117 @@
     <title>Background Music</title>
     <script>
         let audioContext;
-        let backgroundMusicBuffer;
-        let backgroundMusicSource;
+        let audioElement;
         let isMusicPlaying = false;
 
-        // Function to preload background music
-        function preloadBackgroundMusic(url) {
-            console.log("Preloading background music from:", url);
-            const audio = new Audio(url);
-            audio.preload = 'auto'; // Ensure it is preloaded
-            audio.oncanplaythrough = () => {
-                console.log('Music preloaded successfully');
-            };
-            audio.onerror = (e) => {
-                console.error('Error preloading music:', e);
-            };
-        }
-
-        // Function to load background music
-        async function loadBackgroundMusic(url) {
-            console.log("Attempting to load background music from:", url);
-            try {
-                // Fetch the audio file
-                const response = await fetch(url);
-                if (!response.ok) {
-                    console.error('Failed to load audio file: ' + response.statusText);
-                    return;
-                }
-
-                // Convert the audio file into an ArrayBuffer
-                console.log("Audio file fetched successfully. Decoding...");
-                const arrayBuffer = await response.arrayBuffer();
-
-                // Create a new AudioContext if it doesn't exist
-                if (!audioContext) {
-                    console.log("Creating new AudioContext...");
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                }
-
-                // Decode the audio data
-                backgroundMusicBuffer = await audioContext.decodeAudioData(arrayBuffer);
-                console.log("Background music decoded successfully.");
-            } catch (error) {
-                console.error("Error loading or decoding background music:", error);
-            }
-        }
-
-        // Function to play background music
-        function playBackgroundMusic() {
-            console.log("Attempting to play background music...");
-            if (audioContext.state === 'suspended') {
-                console.log("AudioContext suspended, resuming...");
-                audioContext.resume().then(() => {
-                    startMusicPlayback();
-                });
-            } else {
-                startMusicPlayback();
-            }
-        }
-
-        // Function to start music playback
-        function startMusicPlayback() {
-            if (backgroundMusicBuffer && !isMusicPlaying) {
-                console.log("Starting music playback...");
-                backgroundMusicSource = audioContext.createBufferSource();
-                backgroundMusicSource.buffer = backgroundMusicBuffer;
-                backgroundMusicSource.loop = true;
-                backgroundMusicSource.connect(audioContext.destination);
-                backgroundMusicSource.start(0);
-                isMusicPlaying = true;
-                localStorage.setItem('backgroundMusicPlaying', 'true');
-                console.log("Music started.");
-            } else {
-                console.error('Background music buffer is not loaded or already playing.');
-            }
-        }
-
-        // Function to stop background music
-        function stopBackgroundMusic() {
-            if (backgroundMusicSource) {
-                console.log("Stopping background music...");
-                backgroundMusicSource.stop();
-                isMusicPlaying = false;
-                localStorage.setItem('backgroundMusicPlaying', 'false');
-                console.log("Music stopped.");
-            }
-        }
-
-        // Load background music when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log("DOMContentLoaded event triggered.");
-
-            // Start preloading the music as soon as possible
-            preloadBackgroundMusic('sound/background-music.mp3');  // Ensure the path is correct
-
-            // Initialize the audio context and buffer only once
+        // Function to initialize and start music
+        function initMusic() {
+            console.log("Initializing music...");
             if (!audioContext) {
-                loadBackgroundMusic('sound/background-music.mp3');  // Ensure the path is correct
-            }
+                console.log("Creating new AudioContext...");
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                console.log("AudioContext created:", audioContext);
 
-            // If the music is not already playing, add a click listener to start it
-            if (localStorage.getItem('backgroundMusicPlaying') !== 'true') {
-                console.log("Waiting for message to start music...");
-                window.addEventListener('message', (event) => {
-                    console.log("Message received: ", event.data);
-                    if (event.data === 'startMusic') {
-                        playBackgroundMusic();
+                // Create the audio element
+                audioElement = new Audio('sound/background-music.mp3');  // Path to your music file
+                audioElement.loop = true;
+                audioElement.preload = 'auto';
+                console.log("Audio element created:", audioElement);
+
+                audioElement.oncanplaythrough = () => {
+                    console.log("Audio element is ready to play.");
+                };
+
+                audioElement.onplaying = () => {
+                    isMusicPlaying = true;
+                    console.log("Music is playing...");
+                    localStorage.setItem('backgroundMusicPlaying', 'true');
+                };
+
+                audioElement.onpause = () => {
+                    isMusicPlaying = false;
+                    console.log("Music is paused.");
+                    localStorage.setItem('backgroundMusicPlaying', 'false');
+                };
+
+                audioElement.onended = () => {
+                    isMusicPlaying = false;
+                    console.log("Music ended.");
+                    localStorage.setItem('backgroundMusicPlaying', 'false');
+                };
+
+                // Set music state based on saved state in localStorage
+                const musicState = localStorage.getItem('backgroundMusicPlaying');
+                console.log("Music state from localStorage:", musicState);
+
+                if (musicState === 'true') {
+                    console.log("Resuming music from localStorage...");
+                    try {
+                        audioElement.play().then(() => {
+                            console.log("Music started automatically from localStorage.");
+                        }).catch((error) => {
+                            console.error("Error starting music from localStorage:", error);
+                        });
+                    } catch (error) {
+                        console.error("Error starting music:", error);
                     }
-                });
+                } else {
+                    console.log("No music to resume. Music is paused.");
+                    // Restart music if not resumed
+                    audioElement.currentTime = 0; // Reset the audio to the beginning
+                }
+            } else {
+                console.log("AudioContext already exists:", audioContext);
             }
-        });
+        }
 
-        // Persist state when navigating
-        window.addEventListener('beforeunload', () => {
-            console.log("Saving background music state...");
-            localStorage.setItem('backgroundMusicPlaying', isMusicPlaying ? 'true' : 'false');
+        // Function to handle user interaction to start music
+        function startMusicOnClick() {
+            console.log("User clicked, attempting to start music...");
+
+            if (audioElement && !isMusicPlaying) {
+                try {
+                    // Check if the audio element is fully ready to play
+                    if (audioElement.readyState >= 3) {  // READY_STATE_HAVE_FUTURE_DATA
+                        console.log("Audio element is ready, attempting to play...");
+                        audioElement.play().then(() => {
+                            console.log("Music started successfully.");
+                        }).catch((error) => {
+                            console.error("Error starting music on click:", error);
+                        });
+                    } else {
+                        console.log("Audio element not ready, unable to play.");
+                    }
+                } catch (error) {
+                    console.error("Error starting music on click:", error);
+                }
+            } else {
+                console.log("Music is already playing or no audio element to play.");
+            }
+        }
+
+        // Wait for the DOM content to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM content loaded. Initializing music...");
+            initMusic();  // Initialize music setup
+
+            // Start music on any click to satisfy browser's autoplay policy
+            document.body.addEventListener('click', startMusicOnClick);
+
+            // Also, listen for the startMusic message from the iframe
+            window.addEventListener('message', (event) => {
+                if (event.origin !== window.location.origin) {
+                    return; // Security check
+                }
+
+                if (event.data === 'startMusic') {
+                    startMusicOnClick();
+                }
+            });
         });
     </script>
 </head>
 <body>
+    <h2>Click anywhere on the page to start the music!</h2>
 </body>
 </html>

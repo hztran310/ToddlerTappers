@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
-    <title>Toddler Tappers - Game Menu</title>
 </head>
 <body>
     <div class="container">
@@ -30,16 +29,10 @@
             </a>
         </main>
     </div>
+
+    <!-- Embed the iframe so the music keeps playing without interruption -->
+    <iframe id="music-frame" src="background-music.html" style="display:none;"></iframe>
+
     <script src="sketch.js"></script>
-    <script>
-        if (!document.getElementById('music-frame')) {
-            const musicFrame = document.createElement('iframe');
-            musicFrame.id = 'music-frame';
-            musicFrame.src = 'background-music.html';
-            musicFrame.style.display = 'none';
-            document.body.appendChild(musicFrame);
-        }
-    </script>
-    
 </body>
 </html>
