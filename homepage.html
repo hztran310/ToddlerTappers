@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toddler Tappers - Homepage</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
-    <script src="background-music.js" defer></script> <!-- Include the background music script -->
 </head>
 <body>
+    <iframe id="backgroundMusicIframe" src="background-music.html" style="display:none;"></iframe>
+
     <div class="container">
         <main>
             <img src="images/homepage_title.png" alt="Homepage Title" class="homepage-title" />
@@ -21,12 +20,40 @@
 
             <button id="playButton" class="play-btn">
                 <img src="images/play-button.png" alt="Play Button">
+            </button>
 
             <button id="closeButton" class="close-btn">
                 <img src="images/close-button.png" alt="Close Button">
             </button>
+            <button id="startMusicButton" style="display: none;">Start Music</button>
         </main>
     </div>
+
     <script src="sketch.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const iframe = document.getElementById('backgroundMusicIframe');
+            const playButton = document.getElementById('playButton');
+
+            // Ensure that when the Play button is clicked, it triggers both redirect and music
+            playButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent the default button behavior
+                console.log('Play button clicked');
+
+                // Redirect to the game menu page
+                window.location.href = 'game-menu.html'; // Update this URL to your actual game menu page
+
+                // Ensure the message to start music is sent only after redirecting
+                iframe.contentWindow.postMessage('startMusic', '*');
+                console.log('Music start message sent to iframe');
+            });
+
+            // Send message to start music when page is clicked
+            document.body.addEventListener('click', () => {
+                console.log('Clicked on the document');
+                iframe.contentWindow.postMessage('startMusic', '*');  // Send the message to the iframe to start music
+            });
+        });
+    </script>
 </body>
 </html>

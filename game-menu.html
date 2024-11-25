@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
-    <script src="background-music.js" defer></script> <!-- Include the background music script -->
     <title>Toddler Tappers - Game Menu</title>
 </head>
 <body>
@@ -32,5 +31,15 @@
         </main>
     </div>
     <script src="sketch.js"></script>
+    <script>
+        if (!document.getElementById('music-frame')) {
+            const musicFrame = document.createElement('iframe');
+            musicFrame.id = 'music-frame';
+            musicFrame.src = 'background-music.html';
+            musicFrame.style.display = 'none';
+            document.body.appendChild(musicFrame);
+        }
+    </script>
+    
 </body>
 </html>
