@@ -5,8 +5,7 @@ let timer = 100;            // Game time in seconds
 let highScore = 0;         // To store the highest score
 let gameActive = true;     // To control when the game is active
 let endTime = 0;           // To track when the game ends and redirect
-
-
+let transitionSound;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
