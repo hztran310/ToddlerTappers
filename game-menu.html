@@ -31,5 +31,42 @@
         </main>
     </div>
     <script src="sketch.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('fade-in');
+        });        
+    </script>
+    <script>
+        // Ensure the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Apply fade-in effect when the page loads
+            document.body.classList.add('fade-in');
+    
+            // Load the sound
+            const startSound = new Audio('sounds/start.mp3'); // Adjust the path if necessary
+    
+            // Add event listeners to game buttons
+            const gameButtons = document.querySelectorAll('.game-option');
+            gameButtons.forEach(button => {
+                button.addEventListener('click', event => {
+                    event.preventDefault(); // Prevent immediate navigation
+                    const href = button.getAttribute('href'); // Get the target URL
+    
+                    // Play the sound
+                    if (startSound) {
+                        startSound.play();
+                    }
+    
+                    // Apply fade-out effect
+                    document.body.classList.add('fade-out');
+    
+                    // Navigate to the new page after a delay (matching the fade-out duration)
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1000); // 1 second delay to match CSS animation duration
+                });
+            });
+        });
+    </script>    
 </body>
 </html>

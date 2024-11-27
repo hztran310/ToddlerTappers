@@ -1,6 +1,10 @@
+let startSound;
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     setupButtons();
+
+    startSound = loadSound('sounds/start.mp3');
 }
 
 function setupButtons() {
@@ -19,16 +23,24 @@ function setupButtons() {
     }
 
     if (playButton) {
-        playButton.mousePressed(() => window.location.href = 'game-menu.html');
-    }
-    if (reloadButton) {
-        reloadButton.mousePressed(() => resetGame()); // Call resetGame on click
+        playButton.mousePressed(() => {
+            // Play the sound
+            if (startSound) {
+                startSound.play();
+            }
+
+            document.body.classList.add('fade-out');
+    
+            // Add a delay before transitioning to the new page
+            setTimeout(() => {
+                window.location.href = 'game-menu.html';
+            }, 1000); // 1000ms = 1 second delay
+        });
     }
 
     if (homeButton) {
         homeButton.mousePressed(() => window.location.href = 'homepage.html');
     }
-
 
 }
 

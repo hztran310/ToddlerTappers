@@ -1,15 +1,11 @@
 let bubbles = [];
 let popSound;
 let bubbleCount = 0;       // Bubble counter
-let timer = 5;            // Game time in seconds
+let timer = 100;            // Game time in seconds
 let highScore = 0;         // To store the highest score
 let gameActive = true;     // To control when the game is active
 let endTime = 0;           // To track when the game ends and redirect
-
-function preload() {
-  popSound = loadSound('bubble.mp3');
-
-}
+let transitionSound;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -17,6 +13,7 @@ function setup() {
 
   highScore = localStorage.getItem('highScore_Bubble') ? parseInt(localStorage.getItem('highScore')) : 0;
   
+  popSound = loadSound('../sounds/bubble.mp3');
   // Start by generating some initial bubbles
   for (let i = 0; i < 10; i++) {
     createBubble();

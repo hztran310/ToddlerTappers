@@ -8,6 +8,14 @@ let lastConnectedBead = null; // Tracks the last connected bead in the current s
 let colors = ["red", "blue", "green", "yellow", "purple"];
 let score = 0;
 let highScore = 0;
+let sound;
+let completeSound;
+
+function preload()
+{
+    sound = loadSound('../sounds/thread.mp3');
+    completeSound = loadSound('../sounds/thread_complete.mp3');
+}
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -120,6 +128,11 @@ function mouseReleased() {
                 if (beads.filter(b => b.color === currentColor && b.connected).length === beads.filter(b => b.color === currentColor).length) {
                     currentColor = null;   // Unlock to allow starting a new color thread
                     lastConnectedBead = null;
+                    completeSound.play();
+                }
+                else 
+                {
+                    sound.play();
                 }
 
                 // Stop dragging
