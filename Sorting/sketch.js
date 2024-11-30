@@ -96,13 +96,13 @@ function initializeGame() {
 
   // Define all available items
   const allItems = [
-    new DraggableItem('Fake Car', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.2), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.25, windowHeight * 0.21, 'Toys', carImg),
-    new DraggableItem('Doll', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.2), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.3, windowHeight * 0.3, 'Toys', dollImg),
-    new DraggableItem('Broccoli', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowWidth * 0.15, 'Food', brocolliImg),
-    new DraggableItem('Pizza', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Food', pizzaImg),
-    new DraggableItem('Donut', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Food', donutImg),
-    new DraggableItem('Lemonade', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Food', lemonadeImg),
-    new DraggableItem('Robot', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Toys', robotImg),
+    new DraggableItem('Fake Car', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.2), random(windowHeight * 0.2, windowHeight * 0.5), windowWidth * 0.25, windowHeight * 0.21, 'Toys', carImg),
+    new DraggableItem('Doll', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.2), random(windowHeight * 0.2, windowHeight * 0.4), windowWidth * 0.3, windowHeight * 0.3, 'Toys', dollImg),
+    new DraggableItem('Broccoli', random(windowWidth * 0.05, windowWidth * 0.45 - windowWidth * 0.35), random(windowHeight * 0.1, windowHeight * 0.45), windowWidth * 0.15, windowWidth * 0.2, 'Food', brocolliImg),
+    new DraggableItem('Pizza', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.2, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Food', pizzaImg),
+    new DraggableItem('Donut', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.2, windowHeight * 0.5), windowWidth * 0.18, windowHeight * 0.18, 'Food', donutImg),
+    new DraggableItem('Lemonade', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.2, windowHeight * 0.25, 'Food', lemonadeImg),
+    new DraggableItem('Robot', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.2, windowHeight * 0.38), windowWidth * 0.35, windowHeight * 0.35, 'Toys', robotImg),
     new DraggableItem('Brick', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.15), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.15, windowHeight * 0.15, 'Toys', brickImg)
   ];
 
@@ -119,7 +119,7 @@ function initializeGame() {
   const numCoins = floor(random(1, 5));
   
   for (let i = 0; i < numCoins; i++) {
-    items.push(new DraggableItem('Coin', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.1), random(windowHeight * 0.1, windowHeight * 0.5), windowWidth * 0.1, windowWidth * 0.1, 'Piggy Bank', coinImg));
+    items.push(new DraggableItem('Coin', random(windowWidth * 0.05, windowWidth * 0.95 - windowWidth * 0.1), random(windowHeight * 0.2, windowHeight * 0.5), windowWidth * 0.1, windowWidth * 0.1, 'Piggy Bank', coinImg));
   }
   
   for (let item of selectedItemTypes) {
