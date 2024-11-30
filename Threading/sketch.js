@@ -10,11 +10,12 @@ let score = 0;
 let highScore = 0;
 let sound;
 let completeSound;
+let clickSound;
 
-function preload()
-{
+function preload() {
     sound = loadSound('../sounds/thread.mp3');
     completeSound = loadSound('../sounds/thread_complete.mp3');
+    clickSound = loadSound('../sounds/start.mp3');
 }
 
 function setup() {
@@ -25,7 +26,7 @@ function setup() {
 }
 
 function draw() {
-    background(233, 255, 206); 
+    background(233, 255, 206);
 
     // Draw beads
     for (let bead of beads) {
@@ -130,8 +131,7 @@ function mouseReleased() {
                     lastConnectedBead = null;
                     completeSound.play();
                 }
-                else 
-                {
+                else {
                     sound.play();
                 }
 
@@ -230,19 +230,32 @@ function displayEndMessage() {
 
     // Add click events
     continueButton.addEventListener('click', () => {
+        clickSound.play();
         nextLevel = false;
         document.body.removeChild(buttonContainer);
         generateBeads();
     });
 
+
+
     stopButton.addEventListener('click', () => {
-        localStorage.setItem('finalScore', score);
-        localStorage.setItem('currentGame', 'Threading');
-        if (score > highScore) {
-            localStorage.setItem('highScore_Threading', score);
-        }
-        window.location.href = '../result.html';
+        getAudioContext().resume().then(() => {
+            clickSound.play(); // Play the sound only after the context is resumed
+        }).then(() => {
+            // Wait for 1 second before redirecting to the result page
+            setTimeout(() => {
+                localStorage.setItem('finalScore', score);
+                localStorage.setItem('currentGame', 'Threading');
+                if (score > highScore) {
+                    localStorage.setItem('highScore_Threading', score);
+                }
+                window.location.href = '../result.html';
+            }, 500);
+        }).catch(error => {
+            console.error('Error resuming audio context:', error);
+        });
     });
+    
 }
 
 function resetGame() {
