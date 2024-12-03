@@ -20,8 +20,9 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    console.log('Threading Game');
     generateBeads();
-
+    console.log('Hello');
     highScore = localStorage.getItem('highScore_Threading');
 }
 
@@ -72,7 +73,6 @@ function checkIfAllBeadsConnected() {
 }
 
 function mousePressed() {
-
     if (document.getElementById('buttonContainer')) return;
 
     if (nextLevel) {
@@ -130,8 +130,7 @@ function mouseReleased() {
                     currentColor = null;   // Unlock to allow starting a new color thread
                     lastConnectedBead = null;
                     completeSound.play();
-                }
-                else {
+                } else {
                     sound.play();
                 }
 
@@ -149,6 +148,7 @@ function mouseReleased() {
 }
 
 function generateBeads() {
+    console.log('Generating beads');
     beads = [];
     threads = {};
     currentColor = null;
@@ -160,13 +160,14 @@ function generateBeads() {
         for (let i = 0; i < numPairs; i++) {
             let newBead;
             let isValidPosition = false;
+            let attempts = 0; // Add a counter to prevent infinite loops
 
             // Attempt to place the bead without overlapping
-            while (!isValidPosition) {
+            while (!isValidPosition && attempts < 100) { // Limit the number of attempts
                 newBead = {
-                    x: random(400, windowWidth - 200),
-                    y: random(500, windowHeight - 200),
-                    r: 40,
+                    x: random(100, windowWidth - 100),
+                    y: random(200, windowHeight - 100),
+                    r: 10,
                     color: color,
                     connected: false
                 };
@@ -179,10 +180,17 @@ function generateBeads() {
                         break;
                     }
                 }
+                attempts++;
             }
-            beads.push(newBead);
+
+            if (isValidPosition) {
+                beads.push(newBead);
+            } else {
+                console.warn('Could not place bead after 100 attempts');
+            }
         }
     }
+    console.log('Beads generated:', beads);
 }
 
 function displayEndMessage() {
@@ -205,23 +213,21 @@ function displayEndMessage() {
     let continueButton = document.createElement('img');
     continueButton.src = '../images/continue_button.png'; // Path to your image
     continueButton.alt = 'Continue';
-    continueButton.style.width = '500px';
-    continueButton.style.height = '250px';
+    continueButton.style.width = '200px';
+    continueButton.style.height = '100px';
     continueButton.style.margin = '10px';
     continueButton.style.cursor = 'pointer';
     continueButton.classList.add('button'); // Add CSS class
-
 
     // Create "Stop" button
     let stopButton = document.createElement('img');
     stopButton.src = '../images/stop_button.png'; // Path to your image
     stopButton.alt = 'Stop';
-    stopButton.style.width = '500px';
-    stopButton.style.height = '250px';
+    stopButton.style.width = '200px';
+    stopButton.style.height = '100px';
     stopButton.style.margin = '10px';
     stopButton.style.cursor = 'pointer';
     stopButton.classList.add('button'); // Add CSS class
-
 
     // Add buttons to the container
     buttonContainer.appendChild(continueButton);
@@ -230,19 +236,20 @@ function displayEndMessage() {
 
     // Add click events
     continueButton.addEventListener('click', () => {
-        clickSound.play();
-        nextLevel = false;
-        document.body.removeChild(buttonContainer);
-        generateBeads();
+        getAudioContext().resume().then(() => {
+            clickSound.play();
+            nextLevel = false;
+            document.body.removeChild(buttonContainer);
+            generateBeads();
+        }).catch((error) => {
+            console.error('Error resuming audio context:', error);
+        });
     });
-
-
 
     stopButton.addEventListener('click', () => {
         getAudioContext().resume().then(() => {
-            clickSound.play(); // Play the sound only after the context is resumed
-        }).then(() => {
-            // Wait for 1 second before redirecting to the result page
+            clickSound.play();
+            // wait for 1 second before redirecting to result page
             setTimeout(() => {
                 localStorage.setItem('finalScore', score);
                 localStorage.setItem('currentGame', 'Threading');
@@ -251,11 +258,10 @@ function displayEndMessage() {
                 }
                 window.location.href = '../result.html';
             }, 500);
-        }).catch(error => {
+        }).catch((error) => {
             console.error('Error resuming audio context:', error);
         });
     });
-    
 }
 
 function resetGame() {

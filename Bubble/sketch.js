@@ -29,11 +29,11 @@ function draw() {
   background(233, 255, 206);  
 
   fill(0);
-  textSize(100);
+  textSize(40);
   textAlign(CENTER, CENTER); // Center the text horizontally and vertically
 
   if (gameActive) {
-    text(`Time Left: ${timer}`, width / 2, 650);
+    text(`Time Left: ${timer}`, width / 2, 200);
     
     // Update timer and check if game is over
     if (millis() - endTime >= 1000 && timer > 0) {
@@ -99,7 +99,7 @@ function mousePressed() {
 function createBubble() {
   let x = random(width);
   let y = height + random(50, 100); // Start slightly off-screen at the bottom
-  let r = random(60, 120);  // Random size for bubbles
+  let r = random(30, 50);  // Random size for bubbles
   
   // Color palette with vibrant colors and slight transparency
   let colors = [
